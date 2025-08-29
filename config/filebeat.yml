@@ -1,0 +1,31 @@
+filebeat.inputs:
+  - type: filestream
+    paths:
+      - /usr/share/logs/app-*.log
+    json.keys_under_root: true
+    json.add_error_key: true
+    fields:
+      service: spring-auth-api
+    tags: ["springboot", "auth"]
+
+filebeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+  reload.enabled: false
+
+setup.template.settings:
+  index.number_of_shards: 1
+
+output.elasticsearch:
+  hosts: ["https://wazuh.indexer:9200"]
+  preset: balanced
+  username: "admin"
+  password: "SecretPassword"
+  ssl.certificate_authorities: ["/etc/ssl/root-ca.pem"]
+  ssl.certificate: "/etc/ssl/filebeat.pem"
+  ssl.key: "/etc/ssl/filebeat.key"
+
+processors:
+  - add_host_metadata:
+  - add_cloud_metadata: ~
+  - add_docker_metadata: ~
+  - add_kubernetes_metadata: ~

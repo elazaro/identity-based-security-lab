@@ -1,0 +1,68 @@
+filebeat.modules:
+  - module: wazuh
+    alerts:
+      enabled: true
+    archives:
+      enabled: true
+
+filebeat.inputs:
+  - type: filestream
+    id: mxrisc-digital-signature-logs
+    enabled: true
+    paths:
+      - /usr/share/logs/*.log
+    processors:
+      - decode_json_fields:
+          fields: ["message"]
+          process_array: false
+          max_depth: 1
+          target: ""
+          overwrite_keys: true
+          add_error_key: true
+    keys_under_root: true
+    fields:
+      vendor: mxrisc
+      service: digital-signature
+    tags: ["springboot", "digital-signature"]
+
+logging:
+  level: debug
+  logging.selectors: ["*"]
+  to_files: true
+  files:
+    path: /usr/share/logs/filebeat.log
+    name: filebeat
+    keepfiles: 1
+    permissions: 0644
+
+
+setup.template.json.enabled: true
+setup.template.overwrite: true
+setup.template.json.path: '/etc/filebeat/wazuh-template.json'
+setup.template.json.name: 'wazuh'
+setup.ilm.enabled: false
+
+output.elasticsearch:
+  hosts: ['https://wazuh.indexer:9200']
+  username: 'admin'
+  password: 'SecretPassword'
+  ssl.verification_mode: 'full'
+  ssl.certificate_authorities: ['/etc/ssl/root-ca.pem']
+  ssl.certificate: '/etc/ssl/filebeat.pem'
+  ssl.key: '/etc/ssl/filebeat.key'
+  indices:
+    - index: "mxrisc-%{+yyyy.MM.dd}"
+      when.contains:
+        fields.vendor: "mxrisc"
+
+#output.file:
+#  path: "/usr/share/logs/"
+#  filename: "filebeat-output.json"
+
+logging.metrics.enabled: false
+seccomp:
+  default_action: allow
+  syscalls:
+    - action: allow
+      names:
+        - rseq
