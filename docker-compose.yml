@@ -6,7 +6,7 @@ services:
     restart: always
     command:
       - "--api.dashboard=true"
-      - "--api.insecure=true"  # Usa solo para pruebas
+      - "--api.insecure=true"
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
