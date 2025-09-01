@@ -1,0 +1,87 @@
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Logs
+*.log
+
+# Gradle
+.gradle/
+build/
+out/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# VS Code
+.vscode/
+
+# MacOS
+.DS_Store
+
+# Keystores / certs (si no quieres subirlos)
+*.jks
+*.p12
+*.pem
+*.crt
+*.key
+
+# Env files
+.env
+.env.*
+
+# Local scripts o temporales
+*.sh~
+*.bak
+*.swp
+*.tmp
+
+# OS X trash
+.Trashes
+
+# Root-level files you might want to exclude (opcional)
+keycloak/
+keystore/
