@@ -85,13 +85,76 @@ for Services, Devices and People.
 Hashicorp supports ACME (Automatic Certificate Management Environment) protocol
 which is scheduled as next step to be implemented in this lab.
 
-
-***Infrastructure***
+***Platform***
 This Laboratory uses Docker desktop to run every above-listed service (except
 for the Java application) the purpose is to provide a quick mechanism for the
 Lab's users to deploy it easily and helping them to quickly start playing with
 the platform.
 
+This lab uses Traefik Proxy as application gateway to expose the backend
+applications based on FQDN in the URL, this way, a request like
+http://auth.mxrisc.com will pass through Traefik router, and then to the
+traefik service pointing to the either web (HTTP) or websecure (HTTPS) backend
+service, if there are more than a single backend server it can be configured
+directly in the service as loadbalanced, including persistence strategy, but to
+keep things simple each backend service in this lab is not clustered or
+redundant.
+
+## How to use this lab.
+
+This lab's docker-compose file should allow you to run all the software with no
+problems, still, most of the functional configurations in the software, for
+example PKI engine and Intermediate CA with ACME enabled in HCP Vault is not
+shipped with the configurations in this repo, I'll writte complementary guide
+to configure the different aspects to make the lab functional.
+
+
+### Prerequisites:
+
+- Latest Docker Desktop installed in your local computer.
+
+### Docker compose up.
+
+To start all the services as daemons in the background run the following
+command from the directory where you cloned this repo.
+
+``` $ docker compose up -d ```
+
+This command will run all the services configured in the docker-compose file,
+the ```-d``` switch makes docker to run the containers in the background if you
+run the command without the switch all the containers will capture the terminal
+and print their logs directly to it, it's not a bad idea to use it, but you
+will find a neat alternative below in this document.
+
+If you change any configuration in the docker-compose while the container was
+running, you can follow the process listed below:
+
+```
+# Stop the modified container
+$ docker compose stop <service-name>
+# Remove the 
+$ docker compose rm <service-name>
+# Restart the container
+$ docker compose up -d <service-name>
+# you can skip the -d switch if you want to see the logs as they show while
+# booting the image.
+```
+
+If you want to print a given container logs to your terminal, 
+
+```
+$ docker compose logs -f <service-name>
+```
+
+The ```-f``` switch makes docker to capture the terminal and printing the logs
+as they come if you just want the latest printed logs you can avoid this flag
+and docker will print only the latest few lines in your log; it is basically
+the same as the tail command.
+
+You can use the Docker Desktop's UI to perform most of these tasks, but...
+***where's the fun on it?***
+
+>***Important:*** I've only tested this on a MacOS X computer, it should work on any other OS but some path separators or absolute paths should be adjusted to make it run on Windows... I guess...   
 
 # Acknowledge
 I want no to say thanks to ChatGPT as it resulted a very poor tool for
@@ -108,4 +171,5 @@ enjoy implementing any weird and bizzare use case you'd like to share.
 | Version | Notes                                                                                   |
 | ---     | ---                                                                                     |
 | 1.0     | First version with many missing pieces, but delivering a usable lab with many features. |
+| 1.1     | Instructions to start the docker compose file, it should have been in the v1 right?     |
 
