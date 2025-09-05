@@ -7,19 +7,23 @@ services:
     command:
       - "--api.dashboard=true"
       - "--api.insecure=true"
-      - "--providers.docker=true"
+#      - "--certificatesresolvers.mxrisc.acme.caServer=https://vault.mxrisc.com/v1/pki_mxrisc/acme/directory"
+      - "--certificatesresolvers.mxrisc.acme.email=elazaro@mxrisc.com"
+      - "--certificatesresolvers.mxrisc.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.mxrisc.acme.httpchallenge=true"
+      - "--certificatesresolvers.mxrisc.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.mxrisc.acme.tlschallenge=true"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.mxrisc.acme.httpchallenge=true"
-      - "--certificatesresolvers.mxrisc.acme.tlschallenge=true"
-      - "--certificatesresolvers.mxrisc.acme.httpchallenge.entrypoint=web"
-      - "--certificatesresolvers.mxrisc.acme.email=elazaro@mxrisc.com"
-      - "--certificatesresolvers.mxrisc.acme.storage=/letsencrypt/acme.json"
+      - "--providers.docker=true"
+    environment:
+      LEGO_CA_CERTIFICATES: "/usr/local/share/ca-certificates/mxrisc-chain.pem"
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - ./config/vault/pki/certs/chain.pem:/usr/local/share/ca-certificates/mxrisc-chain.pem
       - "traefik_letsencrypt:/letsencrypt"
     labels:
       - "traefik.enable=true"
@@ -71,13 +75,14 @@ services:
     container_name: hashicorp.vault
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.vault.rule=Host(`vault.mxrisc.com`)"
-      - "traefik.http.routers.vault.entrypoints=web"
-      - "traefik.http.services.vault.loadbalancer.server.port=8200"
+      - "traefik.tcp.routers.vault.rule=hostsni(`vault.mxrisc.com`)"
+      - "traefik.tcp.routers.vault.tls.passthrough=true"
+      - "traefik.tcp.routers.vault.entrypoints=websecure"
+      - "traefik.tcp.services.vault.loadbalancer.server.port=443"
     environment:
 #      VAULT_DEV_ROOT_TOKEN_ID: mxrisc-root-token
-      VAULT_ADDR: 'http://0.0.0.0:8200'
-      VAULT_API_ADDR: 'http://0.0.0.0:8200'
+      VAULT_ADDR: 'http://0.0.0.0'
+      VAULT_API_ADDR: 'http://0.0.0.0'
     volumes:
       - vault_logs:/vault/logs:rw
       - vault_file:/vault/file:rw
@@ -151,13 +156,15 @@ services:
       - ./config/wazuh_indexer/internal_users.yml:/usr/share/wazuh-indexer/opensearch-security/internal_users.yml
   wazuh.dashboard:
     image: wazuh/wazuh-dashboard:4.12.1-rc1
-    hostname: wazuh.dashboard
+    hostname: siem.mxrisc.com
     restart: always
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.siem.rule=Host(`siem.mxrisc.com`)"
-      - "traefik.http.routers.siem.entrypoints=web"
-      - "traefik.http.services.siem.loadbalancer.server.port=5601"
+      - "traefik.tcp.routers.siem.rule=hostsni(`siem.mxrisc.com`)"
+      - "traefik.tcp.routers.siem.tls.passthrough=true"
+#      - "traefik.http.routers.siem.rule=Host(`siem.mxrisc.com`)"
+      - "traefik.tcp.routers.siem.entrypoints=websecure"
+      - "traefik.tcp.services.siem.loadbalancer.server.port=5601"
 #      - "traefik.http.routers.siem.tls.certresolver=mxrisc"
 #      - "traefik.http.routers.siem.tls.domains[0].main=siem.mxrisc.com"
     environment:
