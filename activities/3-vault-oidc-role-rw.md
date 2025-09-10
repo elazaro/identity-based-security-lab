@@ -70,10 +70,9 @@ we need to change that to make Vault OIDC authentication work properly.
 With the role configured as shown before an error is returned while trying to
 login to Vault using Keycloak as Authorization server. 
 
-<!-- attach the image -->
+![If TLS is set in Vault, but not as an allowed redirect url, this error is shown](https://github.com/elazaro/identity-based-security-lab/blob/main/activities/imgs/3.0 Sign-to-OIDC-Failure.png?raw=true)
 
 ## Write changes to the Role.
-
 
 ```
 $ docker container exec \
@@ -114,6 +113,10 @@ selecting the OIDC authentication Method, this option will redirect us to the
 Keycloak authentication screen and once a correct authentication is performed
 and authorized, Keycloack will bring us back to Vault showing the granted
 resources.
+
+![OIDC Selection](https://github.com/elazaro/identity-based-security-lab/blob/main/activities/imgs/3.1 OIDC Selection.png?raw=true)
+
+![Vault User Menu](https://github.com/elazaro/identity-based-security-lab/blob/main/activities/imgs/3.2 Authenticated Vault.png?raw=true)
 
 There's another activity for restricting and creating accounts with limited
 resources available in Vault.

@@ -166,10 +166,17 @@ this small lab.
 Please feel free to open a discussion an request features I'd be happy and will
 enjoy implementing any weird and bizzare use case you'd like to share.
 
+## Activities
+
+# Hashicorp Vault
+
+[Activity 3: OIDC Role with TLS](activities/3-vault-oidc-role-rw.md)
+
 ## Document's versions history:
 
 | Version | Notes                                                                                   |
 | ---     | ---                                                                                     |
 | 1.0     | First version with many missing pieces, but delivering a usable lab with many features. |
 | 1.1     | Instructions to start the docker compose file, it should have been in the v1 right?     |
+| 1.2     | New activities section documenting different configurations implemented in the lab.     |
 
