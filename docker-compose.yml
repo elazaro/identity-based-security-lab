@@ -188,6 +188,41 @@ services:
     links:
       - wazuh.indexer:wazuh.indexer
       - wazuh.manager:wazuh.manager
+  openldap:
+    image: osixia/openldap:stable-arm64v8
+    hostname: openldap.mxrisc.com
+    container_name: openldap
+    restart: always
+    environment:
+      LDAP_ORGANISATION: 'mxRISC'
+      LDAP_DOMAIN: 'mxrisc.com'
+      LDAP_BASE_DN: 'dc=mxrisc,dc=com'
+      LDAP_ADMIN_PASSWORD: 'admin-password'
+      LDAP_CONFIG_PASSWORD: 'config-password'
+      LDAP_READONLY_USER: false
+      LDAP_RFC2307BIS_SCHEMA: false
+      LDAP_BACKEND: 'mdb'
+      LDAP_TLS: false
+      LDAP_TLS_CRT_FILENAME: '/usr/local/share/certs/openldap.pem'
+      LDAP_TLS_KEY_FILENAME: '/usr/local/share/certs/openldap.rsa'
+      LDAP_TLS_DH_PARAM_FILENAME: '/usr/local/share/certs/diffie-hellman-params.pem'
+      LDAP_TLS_CA_CRT_FILENAME: '/usr/local/share/certs/mxrisc_certification_chain.pem'
+      LDAP_TLS_ENFORCE: false
+      LDAP_TLS_CIPHER_SUITE: 
+      LDAP_TLS_VERIFY_CLIENT: 'demand'
+      HOSTNAME: 'openldap.mxrisc.com'
+      LDAP_OPENLDAP_UID: 1001
+      LDAP_OPENLDAP_GID: 1001
+    volumes:
+      - openldap-data:/var/lib/ldap
+      - openldap-conf:/var/ldap/slapd.d
+      - ./config/mxrisc_tls_certs:/usr/local/share/certs/
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.ldap.rule=hostsni(`openldap.mxrisc.com`)"
+      - "traefik.tcp.routers.ldap.tls.passthrough=true"
+      - "traefik.tcp.routers.ldap.entrypoints=websecure"
+      - "traefik.tcp.services.vault.loadbalancer.server.port=389"
 volumes:
   traefik_letsencrypt:
     external: true
@@ -224,4 +259,8 @@ volumes:
   vault_logs:
     external: true
   vault_file:
+    external: true
+  openldap-data:
+    external: true
+  openldap-conf:
     external: true
