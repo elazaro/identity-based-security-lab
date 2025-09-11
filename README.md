@@ -172,6 +172,10 @@ enjoy implementing any weird and bizzare use case you'd like to share.
 
 [Activity 3: OIDC Role with TLS](activities/3-vault-oidc-role-rw.md)
 
+# OpenLDAP
+
+[Activity 4: Adding OpenLDAP into the laboratory](activities/4-openldap-setup.md)
+
 ## Document's versions history:
 
 | Version | Notes                                                                                   |
