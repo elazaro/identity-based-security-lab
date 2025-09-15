@@ -1,0 +1,5 @@
+dn: cn=elazaro,o=internal-users,dc=mxrisc,dc=com
+objectClass: account
+objectClass: mxriscEmployee
+cn: elazaro
+uid: 5001

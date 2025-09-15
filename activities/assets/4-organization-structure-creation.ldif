@@ -1,0 +1,35 @@
+dn: o=internet-users,dc=mxrisc,dc=com
+objectClass: top
+objectClass: organization
+o: internet-users
+description: mxRISC customers' accounts.
+
+dn: o=internal-users,dc=mxrisc,dc=com
+objectClass: top
+objectClass: organization
+o: internal-users
+description: mxRISC Umpa Lumpas' accounts. (yeah, yeah, I know)
+
+dn: ou=devices,dc=mxrisc,dc=com
+objectClass: top
+objectClass: OrganizationalUnit
+ou: devices
+description: mxRISC devices' accounts, idk exactly what will I drop here.
+
+dn: ou=disabled,o=internet-users,dc=mxrisc,dc=com
+objectClass: top
+objectClass: OrganizationalUnit
+ou: disabled
+description: Bad Hombres' accounts.
+
+dn: ou=disabled,o=internal-users,dc=mxrisc,dc=com
+objectClass: top
+objectClass: OrganizationalUnit
+ou: disabled
+description: We will miss you.
+
+dn: ou=legalhold,o=internal-users,dc=mxrisc,dc=com
+objectClass: top
+objectClass: OrganizationalUnit
+ou: legalhold
+description: Oh boy!

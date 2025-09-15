@@ -1,0 +1,7 @@
+objectclass ( 1.1.2.2.2 
+    NAME 'mxriscCustomer' 
+    DESC 'mxRISC customers with access from the internet.' 
+    SUP inetOrgPerson 
+    STRUCTURAL 
+    MUST( c ) 
+ )
