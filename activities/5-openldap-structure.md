@@ -1,4 +1,4 @@
-# Activity 4: Identity-Based Security: OpenLDAP Setup
+# Activity 5: Identity-Based Security: OpenLDAP Setup for complex structure.
 
 At this point we can go ahead and configure Keycloak to use OpenLDAP for users
 federation, although, in the wilderness things are not that easy, there could

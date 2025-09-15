@@ -175,6 +175,7 @@ enjoy implementing any weird and bizzare use case you'd like to share.
 # OpenLDAP
 
 [Activity 4: Adding OpenLDAP into the laboratory](activities/4-openldap-setup.md)
+[Activity 5: Identity-Based Security: OpenLDAP Setup for complex structure.](activities/5-openldap-structure.md)
 
 ## Document's versions history:
 
@@ -183,5 +184,6 @@ enjoy implementing any weird and bizzare use case you'd like to share.
 | 1.0     | First version with many missing pieces, but delivering a usable lab with many features. |
 | 1.1     | Instructions to start the docker compose file, it should have been in the v1 right?     |
 | 1.2     | New activities section documenting different configurations implemented in the lab.     |
-| 1.3     | activities/4-openldap-setup.md added reference.                                         |
+| 1.3.0   | activities/4-openldap-setup.md added reference.                                         |
+| 1.3.1   | activities/5-openldap-structure.md added reference.                                     |
 
