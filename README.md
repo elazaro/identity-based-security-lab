@@ -175,6 +175,7 @@ enjoy implementing any weird and bizzare use case you'd like to share.
 # OpenLDAP
 
 [Activity 4: Adding OpenLDAP into the laboratory](activities/4-openldap-setup.md)
+
 [Activity 5: Identity-Based Security: OpenLDAP Setup for complex structure.](activities/5-openldap-structure.md)
 
 ## Document's versions history:
