@@ -212,7 +212,7 @@ services:
       LDAP_TLS_ENFORCE: false
       LDAP_TLS_CIPHER_SUITE: 
       LDAP_TLS_VERIFY_CLIENT: 'demand'
-      #LDAP_SEED_INTERNAL_SCHEMA_PATH: /tmp/custom/mxrisc.schema
+      LDAP_SEED_INTERNAL_SCHEMA_PATH: /tmp/custom/mxrisc.schema
       #LDAP_SEED_INTERNAL_LDIF_PATH: /tmp/custom/mxrisc.ldif
       HOSTNAME: 'openldap.mxrisc.com'
       LDAP_OPENLDAP_UID: 1001

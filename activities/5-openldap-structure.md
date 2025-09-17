@@ -357,13 +357,68 @@ objectclass ( 1.1.2.2.3
     NAME 'mxriscSystem' 
     DESC 'mxRISC applications and infrastructure.' 
     SUP posixAccount 
-    STRUCTURAL 
+    AUXILIAR 
     MAY ( c ) 
  )
 ```
 
 Follow the same procedure we followed while creating the mxriscEmployee class
 for the first time.
+
+> ***Note:*** The posixAccount is AUXILIAR object, so it can only be inherited
+> by AUXILIAR objects but these classes cannot be used to create any object so
+> when creating a System Account, use it in combination with another STRUCTURAL
+> objectClass such as account.
+
+
+### The easy way
+
+If you are starting the openldap for the first time, you can just create a
+schema file containing the objectClass and attributeType definitions and
+present it in the  ```LDAP_SEED_INTERNAL_SCHEMA_PATH``` environment variable.
+
+Remember you first need to mount the local file in the path set to this
+variable.
+
+When started, the container will pick this file, convert it into an ldif and
+will apply the changes to the schema for you, so you don't need to execute any
+of the steps described before, but hey!, now you know the hard way, you deserve
+a break.
+
+```
+attributetype ( 1.1.2.1.1 
+    NAME 'mxriscLeader' 
+    DESC 'Pointer to the team leader DN not the manager.' 
+    EQUALITY distinguishedNameMatch 
+    SUBSTR caseIgnoreSubstringsMatch 
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 
+    SINGLE-VALUE 
+ )
+
+objectclass ( 1.1.2.2.1 
+    NAME 'mxriscEmployee' 
+    DESC 'mxRISC customized accounts' 
+    SUP inetOrgPerson 
+    STRUCTURAL 
+    MAY (c $ mxriscLeader) 
+ )
+
+objectclass ( 1.1.2.2.2 
+    NAME 'mxriscCustomer' 
+    DESC 'mxRISC customers with access from the internet.' 
+    SUP inetOrgPerson 
+    STRUCTURAL 
+    MUST(c) 
+ )
+
+objectclass ( 1.1.2.2.3 
+    NAME 'mxriscSystem' 
+    DESC 'mxRISC applications and infrastructure.' 
+    SUP posixAccount 
+    AUXILIAR 
+    MAY (c) 
+ )
+```
 
 
 ## Testing changes

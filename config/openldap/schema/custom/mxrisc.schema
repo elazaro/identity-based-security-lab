@@ -10,9 +10,23 @@ attributetype ( 1.1.2.1.1
 objectclass ( 1.1.2.2.1 
     NAME 'mxriscEmployee' 
     DESC 'mxRISC customized accounts' 
-    SUP account 
+    SUP inetOrgPerson 
     STRUCTURAL 
-    MUST(cn) 
-    MAY (manager $ mxriscLeader) 
+    MAY (c $ mxriscLeader) 
  )
 
+objectclass ( 1.1.2.2.2 
+    NAME 'mxriscCustomer' 
+    DESC 'mxRISC customers with access from the internet.' 
+    SUP inetOrgPerson 
+    STRUCTURAL 
+    MUST(c) 
+ )
+
+objectclass ( 1.1.2.2.3 
+    NAME 'mxriscSystem' 
+    DESC 'mxRISC applications and infrastructure.' 
+    SUP posixAccount 
+    AUXILIARY 
+    MAY (c) 
+ )

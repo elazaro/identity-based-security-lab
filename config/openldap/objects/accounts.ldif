@@ -1,5 +1,15 @@
 dn: cn=elazaro,o=internal-users,dc=mxrisc,dc=com
-objectClass: account
 objectClass: mxriscEmployee
 cn: elazaro
+sn: Lazaro
 uid: 5001
+
+dn: cn=keycloak,ou=devices,dc=mxrisc,dc=com
+objectClass: mxriscSystem
+objectClass: account
+cn: keycloak
+gidNumber: 5002
+homeDirectory: /home/keycloak
+uid: 5002
+uidNumber: 5002
+c: MX
