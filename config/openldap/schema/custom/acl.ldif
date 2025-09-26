@@ -1,0 +1,8 @@
+dn: olcDatabase={1}mdb,cn=config
+changetype: modify
+replace: olcAccess
+olcAccess: {0}to * by dn.exact=gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth manage by * break
+olcAccess: {1}to attrs=userPassword,shadowLastChange by self write by dn="cn=admin,dc=mxrisc,dc=com" write by anonymous auth by * none
+olcAccess: {2}to dn.one="o=internal-users,dc=mxrisc,dc=com" by dn.base="cn=keycloak,ou=devices,dc=mxrisc,dc=com" write
+olcAccess: {3}to dn.children="dc=mxrisc,dc=com" by dn.base="cn=keycloak,ou=devices,dc=mxrisc,dc=com" search
+olcAccess: {4}to * by self read by dn="cn=admin,dc=mxrisc,dc=com" write by * none
