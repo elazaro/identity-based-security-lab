@@ -193,7 +193,7 @@ services:
     hostname: openldap.mxrisc.com
     container_name: openldap
     command:
-      - "--loglevel=debug"
+      - "--loglevel=trace"
     restart: always
     environment:
       LDAP_ORGANISATION: 'mxRISC'
@@ -204,6 +204,7 @@ services:
       LDAP_READONLY_USER: false
       LDAP_RFC2307BIS_SCHEMA: false
       LDAP_BACKEND: 'mdb'
+      LDAP_LOG_LEVEL: 128
       LDAP_TLS: false
       LDAP_TLS_CRT_FILENAME: '/usr/local/share/certs/openldap.pem'
       LDAP_TLS_KEY_FILENAME: '/usr/local/share/certs/openldap.rsa'
@@ -213,7 +214,7 @@ services:
       LDAP_TLS_CIPHER_SUITE: 
       LDAP_TLS_VERIFY_CLIENT: 'demand'
       LDAP_SEED_INTERNAL_SCHEMA_PATH: /tmp/custom/mxrisc.schema
-      #LDAP_SEED_INTERNAL_LDIF_PATH: /tmp/custom/mxrisc.ldif
+      LDAP_SEED_INTERNAL_LDIF_PATH: /tmp/custom/structure.ldif
       HOSTNAME: 'openldap.mxrisc.com'
       LDAP_OPENLDAP_UID: 1001
       LDAP_OPENLDAP_GID: 1001
@@ -224,6 +225,7 @@ services:
       - openldap-data:/var/lib/ldap
       - openldap-conf:/etc/ldap/slapd.d
       - ./config/openldap/schema/custom:/tmp/custom
+      - ./config/openldap/objects/structure.ldif:/tmp/custom/structure.ldif
       - ./config/mxrisc_tls_certs:/usr/local/share/certs/
     labels:
       - "traefik.enable=true"
