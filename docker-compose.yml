@@ -46,6 +46,7 @@ services:
   keycloak:
     image: keycloak/keycloak:latest
     command: start-dev
+    container_name: keycloak
     hostname: auth.mxrisc.com
     environment:
       KC_DB: mysql
@@ -90,6 +91,7 @@ services:
   wazuh.manager:
     image: wazuh/wazuh-manager:4.12.1-rc1
     hostname: wazuh.manager
+    container_name: wazuh.manager
     restart: always
     ulimits:
       memlock:
@@ -133,6 +135,7 @@ services:
   wazuh.indexer:
     image: wazuh/wazuh-indexer:4.12.1-rc1
     hostname: wazuh.indexer
+    container_name: wazuh.indexer
     restart: always
     ports:
       - "9200:9200"
@@ -157,6 +160,7 @@ services:
   wazuh.dashboard:
     image: wazuh/wazuh-dashboard:4.12.1-rc1
     hostname: siem.mxrisc.com
+    container_name: wazuh.dashboard
     restart: always
     labels:
       - "traefik.enable=true"
