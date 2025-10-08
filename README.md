@@ -168,15 +168,13 @@ enjoy implementing any weird and bizzare use case you'd like to share.
 
 ## Activities
 
-# Hashicorp Vault
-
 [Activity 3: OIDC Role with TLS](activities/3-vault-oidc-role-rw.md)
-
-# OpenLDAP
 
 [Activity 4: Adding OpenLDAP into the laboratory](activities/4-openldap-setup.md)
 
-[Activity 5: Identity-Based Security: OpenLDAP Setup for complex structure.](activities/5-openldap-structure.md)
+[Activity 5: OpenLDAP Setup for complex structure](activities/5-openldap-structure.md)
+
+[Activity 6: KeyCloak User Federation with OpenLDAP](activities/6-keycloak-userfederation.md)
 
 ## Document's versions history:
 
@@ -187,4 +185,5 @@ enjoy implementing any weird and bizzare use case you'd like to share.
 | 1.2     | New activities section documenting different configurations implemented in the lab.     |
 | 1.3.0   | activities/4-openldap-setup.md added reference.                                         |
 | 1.3.1   | activities/5-openldap-structure.md added reference.                                     |
+| 1.3.2   | activities/6-keycloak-userfederation.md added reference.                                |
 
